@@ -24,10 +24,7 @@ class Service
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Poste::class, mappedBy="service")
-     */
-    private $poste;
+   
 
     /**
      * @ORM\ManyToMany(targetEntity=Salle::class, mappedBy="service")
@@ -57,35 +54,9 @@ class Service
         return $this;
     }
 
-    /**
-     * @return Collection|Poste[]
-     */
-    public function getPoste(): Collection
-    {
-        return $this->poste;
-    }
+   
 
-    public function addPoste(Poste $poste): self
-    {
-        if (!$this->poste->contains($poste)) {
-            $this->poste[] = $poste;
-            $poste->setService($this);
-        }
 
-        return $this;
-    }
-
-    public function removePoste(Poste $poste): self
-    {
-        if ($this->poste->removeElement($poste)) {
-            // set the owning side to null (unless already changed)
-            if ($poste->getService() === $this) {
-                $poste->setService(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Salle[]
