@@ -25,13 +25,15 @@ class Role
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Poste::class, mappedBy="habilitation")
+     * @ORM\OneToMany(targetEntity=Utilisateur::class, mappedBy="roles")
      */
-    private $postes;
+    private $utilisateurs;
+
 
     public function __construct()
     {
-        $this->postes = new ArrayCollection();
+    
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,32 +54,34 @@ class Role
     }
 
     /**
-     * @return Collection|Poste[]
+     * @return Collection|Utilisateur[]
      */
-    public function getPostes(): Collection
+    public function getUtilisateurs(): Collection
     {
-        return $this->postes;
+        return $this->utilisateurs;
     }
 
-    public function addPoste(Poste $poste): self
+    public function addUtilisateur(Utilisateur $utilisateur): self
     {
-        if (!$this->postes->contains($poste)) {
-            $this->postes[] = $poste;
-            $poste->setHabilitation($this);
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+            $utilisateur->setRoles($this);
         }
 
         return $this;
     }
 
-    public function removePoste(Poste $poste): self
+    public function removeUtilisateur(Utilisateur $utilisateur): self
     {
-        if ($this->postes->removeElement($poste)) {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
             // set the owning side to null (unless already changed)
-            if ($poste->getHabilitation() === $this) {
-                $poste->setHabilitation(null);
+            if ($utilisateur->getRoles() === $this) {
+                $utilisateur->setRoles(null);
             }
         }
 
         return $this;
     }
+
+    
 }
