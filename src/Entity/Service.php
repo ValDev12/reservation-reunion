@@ -33,7 +33,6 @@ class Service
 
     public function __construct()
     {
-        $this->poste = new ArrayCollection();
         $this->salles = new ArrayCollection();
     }
 

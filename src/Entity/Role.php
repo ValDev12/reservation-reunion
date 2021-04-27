@@ -32,7 +32,7 @@ class Role
 
     public function __construct()
     {
-        $this->postes = new ArrayCollection();
+    
         $this->utilisateurs = new ArrayCollection();
     }
 
