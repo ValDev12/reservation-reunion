@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PersonneController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+<div class="example-wrapper">
+    <h1>🔨 Liste des bannissements</h1>
+
+    <a href="/bannissement/add"><b>Ajouter ➕</b></a>
+    </br>
+    </br>
+    {% for bannissement in bannissements %}
+            <a><b>⛔ Bannissement n°{{ bannissement.getId() }}</b></a></br>
+            <a>❌ Raison: {{ bannissement.getRaison() }}</a></br>
+            <a>👤 Utilisateur: {{ bannissement.getUtilisateur().getPseudo() }}</a></br>
+            <a>📅 Date: Début: {{ bannissement.getDateDebut|date('d/m/Y') }} - Fin: {{ bannissement.getDateFin|date('d/m/Y') }}</a></br>
+            <a href="/bannissement/update/{{bannissement.getID()}}">(Modifier 📝)</a>
+            <a href="/bannissement/delete/{{bannissement.getID()}}">(Supprimer ✖)</a>
+            </br>
+            ----------------------------------------------------------------
+            </br>
+    {% endfor %}
+    </br>
+</div>
+{% endblock %}
