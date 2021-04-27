@@ -1,10 +1,18 @@
 <?php
 
 namespace App\Controller;
+
+us<<<<<<< HEAD
+
+use App\Entity\Reservation;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+=======
 use App\Entity\Reservation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+>>>>>>> main
 use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
@@ -18,6 +26,8 @@ class ReservationController extends AbstractController
             'controller_name' => 'ReservationController',
         ]);
     }
+<<<<<<< HEAD
+=======
 
     /**
      * @Route("/reservation/list", name="list_r")
@@ -65,4 +75,4 @@ class ReservationController extends AbstractController
         }   
              return $response;
     }
-}
+>>>>>>> main
