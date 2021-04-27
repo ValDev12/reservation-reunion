@@ -39,15 +39,17 @@ class Utilisateur
      */
     private $mdp;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Poste::class, inversedBy="utilisateurs")
-     */
-    private $poste;
+  
 
     /**
      * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="createur")
      */
     private $reservations;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="utilisateurs")
+     */
+    private $roles;
 
     public function __construct()
     {
@@ -107,17 +109,6 @@ class Utilisateur
         return $this;
     }
 
-    public function getPoste(): ?Poste
-    {
-        return $this->poste;
-    }
-
-    public function setPoste(?Poste $poste): self
-    {
-        $this->poste = $poste;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Reservation[]
@@ -145,6 +136,18 @@ class Utilisateur
                 $reservation->setCreateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRoles(): ?Role
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(?Role $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
