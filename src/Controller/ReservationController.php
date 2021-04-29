@@ -32,10 +32,25 @@ class ReservationController extends AbstractController
     }
 
 
+
+    
+    /**
+     * @Route("/reservation/listResUser/{id}", name="ResController_list_res_user")
+     */
+    public function listResUser($id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $res = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        return $this->render('reservation/AfficheReservation.html.twig', [
+            'reservations' => $res,
+        ]);
+    }
+
+
      /**
      * @Route("/reservation/add/{id}", name="add_r")
      */
-    public function add(Request $req): Response
+    public function add($id,Request $req): Response
     {
         $uneReservation= new Reservation();
         $entityManager = $this->getDoctrine()->getManager();
