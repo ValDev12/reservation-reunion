@@ -80,5 +80,56 @@ class ReservationController extends AbstractController
             $response= $this->render('reservation/AjoutReservation.html.twig',['formulaire' => $form->createView(), ]);
         }   
              return $response;
+        }
+
+    /**
+     * @Route("/reservation/update/{id}", name="ResController_update")
+     */
+    public function update($id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        if(!$res)
+        {
+            throw $this->createNotFoundException
+            (
+                'Aucun reservation trouvée avec l\'id'.$id
+            );
+        }
+        $form = $this->createForm(ReservationController::class, $uneReservation,[]);
+        $form -> handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($res);
+            $em->flush();
+
+            return $this->redirectToRoute('roleController_role_list');
+        }
+        else
+        {
+            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
+        }
     }
+
+     /**
+     * @Route("/reservation/delete/{id}", name="ResController_delete")
+     */
+    public function delete($id): Response
+    {
+        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if (!$utilisateur)
+        {
+            throw $this->createNotFoundException('Aucun utilisateur avec l\'id '.$id);
+        }
+        else
+        {
+            $em->remove($uneReservation);
+            $em->flush();
+        }
+        return $this->redirectToRoute('utilisateur');
+    }
+
+
+
 }
