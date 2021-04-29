@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\SalleReservationType;
 use App\Entity\Type;
 use App\Entity\Service;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 class SalleController extends AbstractController
 {
@@ -63,4 +63,52 @@ class SalleController extends AbstractController
               return $this->render('salle/add.html.twig', ['formulaire' => $form->createView(),]);
           }
       }
+
+    /**
+     * @Route("/salle/update/{id}", name="salleController_salle_update")
+     */
+    public function update($id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $salle = $this->getDoctrine()->getRepository(Salle::class)->find($id);
+        if(!$salle)
+        {
+            throw $this->createNotFoundException
+            (
+                'Aucun salle trouvée avec l\'id'.$id
+            );
+        }
+        $form = $this->createForm(SalleType::class, $salle,[]);
+        $form -> handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($salle);
+            $em->flush();
+
+            return $this->redirectToRoute('salleController_salle_list');
+        }
+        else
+        {
+            return $this->render('salle/addSalle.html.twig', ['formulaire' => $form->createView(),]);
+        }
+    }
+
+    /**
+     * @Route("/salle/delete/{id}", name="salleController_salle_delete")
+     */
+    public function delete($id): Response
+    {
+        $salle = $this->getDoctrine()->getRepository(Salle::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if (!$salle)
+        {
+            throw $this->createNotFoundException('Aucun salle avec l\'id '.$id);
+        }
+        else
+        {
+            $em->remove($salle);
+            $em->flush();
+        }
+        return $this->redirectToRoute('salle');
+    }
 }
