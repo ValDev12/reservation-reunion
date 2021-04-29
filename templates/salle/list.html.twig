@@ -8,7 +8,7 @@
 </style>
 <div class="example-wrapper">
     <h1>
-        Les salles de réservation
+        Les salles de réservation <a href="{{ path('salle_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
     {% for i in 0..salles|length - 1 %}
     <ul>
@@ -17,6 +17,10 @@
                 Nom de la salle :{{salles[i].libelle }}
                 <p></p>
                 Nombre de place(s) :{{salles[i].nbPlaces}}
+            </br>
+            <br>
+                <a href="{{ path('salle_update' , {id : salles[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
+                <a href="{{ path('salle_delete' , {id : salles[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
             </br>    
         </tr>
     </ul>

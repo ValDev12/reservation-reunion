@@ -55,7 +55,7 @@ class SalleController extends AbstractController
   
               $entity->flush();
   
-              return $this-> redirectToRoute('salle');
+              return $this-> redirectToRoute('salle_list');
           
           }
           else
@@ -65,36 +65,35 @@ class SalleController extends AbstractController
       }
 
     /**
-     * @Route("/salle/update/{id}", name="salleController_salle_update")
+     * @Route("salle/update/{id}", name="salle_update")
      */
-    public function update($id, Request $request): Response
+    public function update($id, Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $salle = $this->getDoctrine()->getRepository(Salle::class)->find($id);
-        if(!$salle)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun salle trouvée avec l\'id'.$id
-            );
-        }
-        $form = $this->createForm(SalleType::class, $salle,[]);
-        $form -> handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($salle);
-            $em->flush();
+        $entity = $this->getDoctrine()->getManager();
+        $salle = $entity->getRepository(Salle::class)->find($id);
+        $types = $entity->getRepository(Type::class)->findAll();
+        $services = $entity->getRepository(Service::class)->findAll();
+        $form = $this->createForm(SalleReservationType::class, $salle, ['type' => $types, 'service' => $services ]);
 
-            return $this->redirectToRoute('salleController_salle_list');
+        $form->handleRequest($req);
+
+        if($form->isSubmitted())
+        {
+            $entity->persist($salle);
+
+            $entity->flush();
+
+            return $this-> redirectToRoute('salle_list');
+        
         }
         else
         {
-            return $this->render('salle/addSalle.html.twig', ['formulaire' => $form->createView(),]);
+            return $this->render('salle/update.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
     /**
-     * @Route("/salle/delete/{id}", name="salleController_salle_delete")
+     * @Route("salle/delete/{id}", name="salle_delete")
      */
     public function delete($id): Response
     {
@@ -109,6 +108,6 @@ class SalleController extends AbstractController
             $em->remove($salle);
             $em->flush();
         }
-        return $this->redirectToRoute('salle');
+        return $this->redirectToRoute('salle_list');
     }
 }
