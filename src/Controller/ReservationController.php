@@ -50,7 +50,8 @@ class ReservationController extends AbstractController
         }
         $uneReservation->setCreateur($leCreateur);
         $usersAll  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
-        $form=$this->createForm(ReservationType::class ,$uneReservation,['utilisateurs'=>$usersAll,]);
+        $salles  = $this->getDoctrine()->getRepository(Salle::class)->findAll();
+        $form=$this->createForm(ReservationType::class ,$uneReservation,['utilisateurs'=>$usersAll,'salles'=>$salles,]);
 
         $form-> handleRequest($req);
         if($form->isSubmitted())
