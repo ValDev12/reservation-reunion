@@ -30,7 +30,7 @@ class RoleController extends AbstractController
     public function add(Request $req): Response
     {
         $role = new Role();
-        /*$users = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();*/
+        $users = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         $form = $this->createForm(RoleType::class, $role, ['utilisateur' => null]);
   
         $form->handleRequest($req);

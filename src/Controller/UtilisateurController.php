@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Form\UtilisateurType;
+use App\Entity\Role;
 use Symfony\Component\Validator\Constraints\Length;
 
 class UtilisateurController extends AbstractController
@@ -22,97 +25,86 @@ class UtilisateurController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/add", name="utilisateurController_utilisateur_add")
+     * @Route("utilisateur/add", name="utilisateur_add")
      */
-    public function add(Request $request): Response
+    public function add(Request $req): Response
     {
-        $utilisateur = new Utilisateur();
-        $utilisateurs = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
-        $form = $this->createForm(UtilisateurUtilisateur::class, $utilisateur,[
-            'utilisateurs' => $utilisateurs,
-         ]);
-        $form -> handleRequest($request);
-        if ($form-> isSubmitted() && $form->isValid())
+        $user = new Utilisateur();
+        $roles = $this->getDoctrine()->getRepository(Role::class)->findAll();
+        $form = $this->createForm(UtilisateurType::class, $user, ['role' => $roles]);
+  
+        $form->handleRequest($req);
+  
+        if($form->isSubmitted() && $form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($utilisateur);
-            $em->flush();
-            return $this->redirectToRoute('utilisateurController_utilisateur_list',);
+            $entity = $this->getDoctrine()->getManager();
+  
+            $entity->persist($user);
+  
+            $entity->flush();
+  
+            return $this-> redirectToRoute('utilisateur_list');
+          
         }
         else
         {
-            return $this->render('utilisateur/addUtilisateur.html.twig', ['formulaire' => $form->createView()]);
+            return $this->render('utilisateur/add.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
     /**
-     * @Route("/utilisateur/list", name="utilisateurController_utilisateur_list")
+     * @Route("utilisateur/list", name="utilisateur_list")
      */
     public function list(): Response
     {
-        $utilisateurs = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
-        $roles = $this->getDoctrine()->getRepository(Role::class)->findAll();
-        return $this->render('utilisateur/index.html.twig', [
-            'liste_utilisateurs' => $utilisateurs,
-            'roles' => $roles,
-        ]);
+        $user = $this->getDoctrine()->getRepository(Utilisateur::class);
+        $users = $user->findAll();
+        return $this->render('utilisateur/list.html.twig', ['utilisateurs' => $users]) ;
     }
 
     /**
-     * @Route("/utilisateur/update/{id}", name="utilisateurController_utilisateur_update")
+     * @Route("utilisateur/update/{id}", name="utilisateur_update")
      */
-    public function update($id, Request $request): Response
+    public function update($id, Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $roles = $this->getDoctrine()->getRepository(Role::class)->findAll();
-        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($id);
-        if(!$utilisateur)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun utilisateur trouvée avec l\'id'.$id
-            );
-        }
-        if(!$roles)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun rôle(s) trouvée avec l\'id'.$id
-            );
-        }
-        $form = $this->createForm(UtilisateurType::class, $utilisateur,[
-            'roles' => $roles,
-        ]);
-        $form -> handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($utilisateur);
-            $em->flush();
+        $entity = $this->getDoctrine()->getManager();
+        $user = $entity->getRepository(Utilisateur::class)->find($id);
+        $roles = $entity->getRepository(Role::class)->findAll();
+        $form = $this->createForm(UtilisateurType::class, $user, ['role' => $roles]);
 
-            return $this->redirectToRoute('utilisateurController_utilisateur_list');
+        $form->handleRequest($req);
+
+        if($form->isSubmitted())
+        {
+            $entity->persist($user);
+
+            $entity->flush();
+
+            return $this-> redirectToRoute('utilisateur_list');
+        
         }
         else
         {
-            return $this->render('utilisateur/addUtilisateur.html.twig', ['formulaire' => $form->createView(),]);
+            return $this->render('utilisateur/update.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
     /**
-     * @Route("/utilisateur/delete/{id}", name="utilisateurController_utilisateur_delete")
+     * @Route("utilisateur/delete/{id}", name="utilisateur_delete")
      */
     public function delete($id): Response
     {
-        $utilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($id);
+        $user = $this->getDoctrine()->getRepository(Utilisateur::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        if (!$utilisateur)
+        if (!$user)
         {
             throw $this->createNotFoundException('Aucun utilisateur avec l\'id '.$id);
         }
         else
         {
-            $em->remove($utilisateur);
+            $em->remove($user);
             $em->flush();
         }
-        return $this->redirectToRoute('utilisateur');
+        return $this->redirectToRoute('utilisateur_list');
     }
 }
