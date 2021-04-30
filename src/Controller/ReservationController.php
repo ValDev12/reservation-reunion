@@ -32,10 +32,25 @@ class ReservationController extends AbstractController
     }
 
 
+
+    
+    /**
+     * @Route("/reservation/listResUser/{id}", name="ResController_list_res_user")
+     */
+    public function listResUser($id): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $res = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        return $this->render('reservation/AfficheReservation.html.twig', [
+            'reservations' => $res,
+        ]);
+    }
+
+
      /**
      * @Route("/reservation/add/{id}", name="add_r")
      */
-    public function add(Request $req): Response
+    public function add($id,Request $req): Response
     {
         $uneReservation= new Reservation();
         $entityManager = $this->getDoctrine()->getManager();
@@ -50,7 +65,8 @@ class ReservationController extends AbstractController
         }
         $uneReservation->setCreateur($leCreateur);
         $usersAll  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
-        $form=$this->createForm(ReservationType::class ,$uneReservation,['utilisateurs'=>$usersAll,]);
+        $salles  = $this->getDoctrine()->getRepository(Salle::class)->findAll();
+        $form=$this->createForm(ReservationType::class ,$uneReservation,['utilisateurs'=>$usersAll,'salles'=>$salles,]);
 
         $form-> handleRequest($req);
         if($form->isSubmitted())
@@ -64,5 +80,56 @@ class ReservationController extends AbstractController
             $response= $this->render('reservation/AjoutReservation.html.twig',['formulaire' => $form->createView(), ]);
         }   
              return $response;
+        }
+
+    /**
+     * @Route("/reservation/update/{id}", name="ResController_update")
+     */
+    public function update($id, Request $request): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        if(!$res)
+        {
+            throw $this->createNotFoundException
+            (
+                'Aucun reservation trouvée avec l\'id'.$id
+            );
+        }
+        $form = $this->createForm(ReservationController::class, $uneReservation,[]);
+        $form -> handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($res);
+            $em->flush();
+
+            return $this->redirectToRoute('roleController_role_list');
+        }
+        else
+        {
+            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
+        }
     }
+
+     /**
+     * @Route("/reservation/delete/{id}", name="ResController_delete")
+     */
+    public function delete($id): Response
+    {
+        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        if (!$utilisateur)
+        {
+            throw $this->createNotFoundException('Aucun utilisateur avec l\'id '.$id);
+        }
+        else
+        {
+            $em->remove($uneReservation);
+            $em->flush();
+        }
+        return $this->redirectToRoute('utilisateur');
+    }
+
+
+
 }
