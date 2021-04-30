@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Bienvenue!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('pagetest.css')}}" />
+    </head>
+    <body>
+        <div class="topbar">
+        <a href="/"><img src="{{ asset('logo-gsb.png')}}" width= "100px"/></a>
+        </div>
+
+        <div class="menu">
+            <a href="/">ACCUEIL</a>
+            <a> | </a>
+            <a href="/">RÉSERVER</a>
+            <a> | </a>
+            <a href="/">CONSULTER</a>
+            <a> | </a>
+            <a href="/">CONNEXION</a>
+        </div>
+
+        <div class="contenu">
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="footer">
+            <a>Application v.1</a>
+        </div>
+    </body>
+</html>
