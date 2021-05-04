@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Utilisateur;
+use App\Form\RoleType;
 
 class RoleController extends AbstractController
 {
@@ -22,71 +25,72 @@ class RoleController extends AbstractController
     }
 
      /**
-     * @Route("/role/add", name="roleController_role_add")
+     * @Route("role/add", name="role_add")
      */
-    public function add(Request $request): Response
+    public function add(Request $req): Response
     {
         $role = new Role();
-        $roles = $this->getDoctrine()->getRepository(Role::class)->findAll();
-        $form = $this->createForm(RoleType::class, $role,[
-            'roles' => $roles,
-         ]);
-        $form -> handleRequest($request);
-        if ($form-> isSubmitted() && $form->isValid())
+        $users = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        $form = $this->createForm(RoleType::class, $role, ['utilisateur' => null]);
+  
+        $form->handleRequest($req);
+  
+        if($form->isSubmitted() && $form->isValid())
         {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($role);
-            $em->flush();
-            return $this->redirectToRoute('roleController_role_list',);
+            $entity = $this->getDoctrine()->getManager();
+  
+            $entity->persist($role);
+  
+            $entity->flush();
+  
+            return $this-> redirectToRoute('role_list');
+          
         }
         else
         {
-            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView()]);
+            return $this->render('role/add.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
     
     /**
-     * @Route("/role/list", name="roleController_role_list")
+     * @Route("role/list", name="role_list")
      */
     public function list(): Response
     {
-        $roles = $this->getDoctrine()->getRepository(Role::class)->findAll();
-        return $this->render('role/index.html.twig', [
-            'liste_roles' => $roles,
-        ]);
+        $role = $this->getDoctrine()->getRepository(Role::class);
+        $roles = $role->findAll();
+        return $this->render('role/list.html.twig', ['roles' => $roles]) ;
     }
 
     /**
-     * @Route("/role/update/{id}", name="roleController_role_update")
+     * @Route("role/update/{id}", name="role_update")
      */
-    public function update($id, Request $request): Response
+    public function update($id, Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $role = $this->getDoctrine()->getRepository(Role::class)->find($id);
-        if(!$role)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun role trouvée avec l\'id'.$id
-            );
-        }
-        $form = $this->createForm(RoleType::class, $role,[]);
-        $form -> handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($role);
-            $em->flush();
+        $entity = $this->getDoctrine()->getManager();
+        $role = $entity->getRepository(Role::class)->find($id);
+        $users = $entity->getRepository(Utilisateur::class)->findAll();
+        $form = $this->createForm(RoleType::class, $role, ['utilisateur' => $users]);
 
-            return $this->redirectToRoute('roleController_role_list');
+        $form->handleRequest($req);
+
+        if($form->isSubmitted())
+        {
+            $entity->persist($role);
+
+            $entity->flush();
+
+            return $this-> redirectToRoute('role_list');
+        
         }
         else
         {
-            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
+            return $this->render('role/update.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
     /**
-     * @Route("/role/delete/{id}", name="roleController_role_delete")
+     * @Route("role/delete/{id}", name="role_delete")
      */
     public function delete($id): Response
     {
@@ -101,6 +105,6 @@ class RoleController extends AbstractController
             $em->remove($role);
             $em->flush();
         }
-        return $this->redirectToRoute('role');
+        return $this->redirectToRoute('role_list');
     }
 }
