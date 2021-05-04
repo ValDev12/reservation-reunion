@@ -11,14 +11,25 @@
         <a href="/"><img src="{{ asset('logo-gsb.png')}}" width= "100px"/></a>
         </div>
 
-        <div class="menu">
-            <a href="/">ACCUEIL</a>
+       <div class="menu">
+            <a href="{{ path('page_test')}}">ACCUEIL</a>
             <a> | </a>
             <a href="/">RÉSERVER</a>
             <a> | </a>
             <a href="/">CONSULTER</a>
             <a> | </a>
-            <a href="/">CONNEXION</a>
+            <a href="{{ path('app_login')}}">CONNEXION</a>
+            <a> | </a>
+            <a href="{{ path('role_add')}}">ROLE</a>
+            <a> | </a>
+            <a href="{{ path('utilisateur_add')}}">UTILISATEUR</a>
+            <a> | </a>
+            <a href="{{ path('typeController_type_add')}}">TYPE</a>
+            <a> | </a>
+            <a href="{{ path('salle_add')}}">SALLE</a>
+            <a> | </a>
+            <a href="{{ path('service_add')}}">SERVICE</a>
+    
         </div>
 
         <div class="contenu">
