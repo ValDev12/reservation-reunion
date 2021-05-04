@@ -10,6 +10,7 @@
     <h1>
         Les roles <a href="{{ path('role_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
+    {% if roles|length > 0 %}
     {% for i in 0..roles|length - 1 %}
     <ul>
         <tr>
@@ -23,6 +24,7 @@
         </tr>
     </ul>
     {% endfor %}
+    {% endif %}
 <pre>
     Revenir au menu <a href="{{ path('role')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
 </pre>
