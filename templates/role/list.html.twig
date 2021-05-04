@@ -6,11 +6,12 @@
     <h1>
         Les roles <a href="{{ path('role_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
+    {% if roles|length > 0 %}
     {% for i in 0..roles|length - 1 %}
     <ul>
         <tr>
             <br>
-                <b>Libelle du role</b> : {{roles[i].libelle }}
+                libelle du role :{{roles[i].libelle }}
             </br>
             <br>
                 <a href="{{ path('role_update' , {id : roles[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
@@ -19,7 +20,8 @@
         </tr>
     </ul>
     {% endfor %}
-    <pre>
-        Revenir au menu <a href="{{ path('role')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-    </pre>
+    {% endif %}
+<pre>
+    Revenir au menu <a href="{{ path('role')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+</pre>
 {% endblock %}

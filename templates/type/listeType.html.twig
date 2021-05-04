@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des types <a href="{{path('typeController_type_add')}}"><img src="{{ asset('image/index.png') }}" /></a></h1>
+    {% for types in liste_types %}
+        <tr>
+            <td> 
+                <li> 
+                    {{types.nom}}
+                    <td> 
+                        <a href="{{path('typeController_type_update',{id:types.id})}}"><img src="{{ asset('image/crayon.png') }}" /></a>
+                    </td>
+                    <td> 
+                        <a href="{{path('typeController_type_delete',{id:types.id})}}"><img src="{{ asset('image/images.png') }}" /></a>
+                    </td>
+                </li> 
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}

@@ -1,19 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Services!{% endblock %}
+{% block title %}Ajout d'un service{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;}
-</style>
+    <h1>Ajout d'un service</h1>
 
-<div class="example-wrapper">
-    <h1>Ajout service</h1>
-
-<td>{{form(formulaire)}}</td>
-<pre>
-    Revenir à la liste des services <a href="{{ path('service_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-</pre>
-</div>
-
+    <td>{{form(formulaire)}}</td>
+    <pre>
+        Revenir à la liste des services <a href="{{ path('service_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+    </pre>
 {% endblock %}

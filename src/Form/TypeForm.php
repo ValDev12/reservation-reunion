@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TypeForm extends AbstractType
@@ -13,6 +15,7 @@ class TypeForm extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('valider', SubmitType::class);
         ;
     }
 

@@ -1,15 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Services!{% endblock %}
+{% block title %}Liste des services{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;}
-</style>
-<div class="example-wrapper">
     <h1>
         Les services <a href="{{ path('service_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
+    {% if services|length > 0 %}
     {% for i in 0..services|length - 1 %}
     <ul>
         <tr>
@@ -23,8 +20,8 @@
         </tr>
     </ul>
     {% endfor %}
-<pre>
-    Revenir au menu <a href="{{ path('service')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-</pre>
-</div>
+    {% endif %}
+    <pre>
+        Revenir au menu <a href="{{ path('service')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+    </pre>
 {% endblock %}

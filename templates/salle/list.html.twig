@@ -1,11 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Les salles de réservation{% endblock %}
+{% block title %}Liste des salles{% endblock %}
 
 {% block body %}
     <h1>
         Les salles de réservation <a href="{{ path('salle_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
+    {% if salles|length > 0 %}
     {% for i in 0..salles|length - 1 %}
     <ul>
         <tr>
@@ -21,6 +22,7 @@
         </tr>
     </ul>
     {% endfor %}
+    {% endif %}
     <pre>
         Revenir au menu <a href="{{ path('salle')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
     </pre>

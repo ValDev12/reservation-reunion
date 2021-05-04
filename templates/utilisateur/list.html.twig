@@ -3,13 +3,17 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
+    <h1>
+        Les utilisateurs <a href="{{ path('utilisateur_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
+    </h1>
+    {% if utilisateurs|length > 0 %}
     {% for i in 0..utilisateurs|length - 1 %}
     <ul>
         <tr>
             <br>
-                <b>Nom utilisateur</b> : {{utilisateurs[i].nom }}</br>
-                <b>Prénom utilisateur</b> : {{utilisateurs[i].prenom }}
+                Nom utilisateur :{{utilisateurs[i].nom }}
+                <p></p>
+                Prénom utilisateur : {{utilisateurs[i].prenom }}
             </br>
             <br>
                 <a href="{{ path('utilisateur_update' , {id : utilisateurs[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
@@ -18,6 +22,7 @@
         </tr>
     </ul>
     {% endfor %}
+    {% endif %}
     <pre>
         Revenir au menu <a href="{{ path('utilisateur')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
     </pre>
