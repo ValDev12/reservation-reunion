@@ -12,10 +12,9 @@
         </div>
 
        <div class="menu">
-            <a href="{{ path('app_login')}}">CONNEXION</a>
-            <a> | </a>
-            <a href="{{ path('app_register')}}">INSCRIPTION</a>
+            
             {% if app.user %}
+                <a href="{{ path('app_logout') }}">DÉCONNEXION</a>
                 <a> | </a>
                 <a href="/">RÉSERVER</a>
                 <a> | </a>
@@ -30,13 +29,23 @@
                 <a href="{{ path('salle_add')}}">SALLE</a>
                 <a> | </a>
                 <a href="{{ path('service_add')}}">SERVICE</a>
+            {% else %}
+                <a href="{{ path('app_login')}}">CONNEXION</a>
             {% endif %}
     
         </div>
 
+        
+
         <div class="contenu">
-            {% block body %}{% endblock %}
+            {% if app.user or app.request.get('_route') == 'app_login' %}
+                {% block body %}{% endblock %}
+            {% else %}
+                <img src="{{ asset('Images/padlock.png')}}" width= "100px"/>
+                <p>Vous devez être connecté pour accéder au site.</p>
+            {% endif %}
         </div>
+
 
         <div class="footer">
             <a>Application v.1</a>

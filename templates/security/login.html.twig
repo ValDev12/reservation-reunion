@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Connexion!{% endblock %}
 
 {% block body %}
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -10,23 +11,26 @@
 
     {% if app.user %}
         <div class="mb-3">
-            Vous êtes connecté avec {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            Vous êtes connecté avec {{ app.user.username }}
         </div>
+
+    {% else %}
+        <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+        <label for="inputEmail">✉ Mail</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+        <p></p>
+        <label for="inputPassword">🔑 Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
+        <p></p>
+        <button class="btn btn-lg btn-primary" type="submit">
+            Connexion
+        </button>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <p></p>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-    <p></p>
-    <button class="btn btn-lg btn-primary" type="submit">
-        Connexion
-    </button>
+    
 </form>
 {% endblock %}
