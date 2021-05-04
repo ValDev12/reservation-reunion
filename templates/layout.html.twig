@@ -14,6 +14,8 @@
        <div class="menu">
             
             {% if app.user %}
+                <a href="{{ path('app_logout') }}">DÉCONNEXION</a>
+                <a> | </a>
                 <a href="/">RÉSERVER</a>
                 <a> | </a>
                 <a href="/">CONSULTER</a>
@@ -29,8 +31,6 @@
                 <a href="{{ path('service_add')}}">SERVICE</a>
             {% else %}
                 <a href="{{ path('app_login')}}">CONNEXION</a>
-                <a> | </a>
-                <a href="{{ path('app_register')}}">INSCRIPTION</a>
             {% endif %}
     
         </div>
@@ -38,11 +38,11 @@
         
 
         <div class="contenu">
-            {% if app.user %}
+            {% if app.user or app.request.get('_route') == 'app_login' %}
                 {% block body %}{% endblock %}
             {% else %}
                 <img src="{{ asset('Images/padlock.png')}}" width= "100px"/>
-                <p>Vous devez être connecté pour accéder à cette page.</p>
+                <p>Vous devez être connecté pour accéder au site.</p>
             {% endif %}
         </div>
 
