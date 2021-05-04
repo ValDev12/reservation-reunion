@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
 
@@ -11,9 +11,8 @@
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
-        <p></p>
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Mot de passe'
         }) }}
         <p></p>
         <button type="submit" class="btn">Inscription</button>

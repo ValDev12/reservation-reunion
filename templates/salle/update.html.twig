@@ -1,18 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Salles!{% endblock %}
+{% block title %}Modification d'une salle{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-</style>
+    <h1>Modification d'une salle</h1>
 
-<div class="example-wrapper">
-    <h1>Modification salle</h1>
-
-{{form(formulaire)}}
-<pre>
-    Revenir à la liste des salles <a href="{{ path('salle_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-</pre>
-</div>
+    {{form(formulaire)}}
+    <pre>
+        Revenir à la liste des salles <a href="{{ path('salle_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+    </pre>
 {% endblock %}

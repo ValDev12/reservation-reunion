@@ -140,7 +140,7 @@
         ]
     },
     "symfony/asset": {
-        "version": "v5.2.4"
+        "version": "v5.2.7"
     },
     "symfony/browser-kit": {
         "version": "v5.2.4"
