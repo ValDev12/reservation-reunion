@@ -35,9 +35,17 @@
     
         </div>
 
+        
+
         <div class="contenu">
-            {% block body %}{% endblock %}
+            {% if app.user %}
+                {% block body %}{% endblock %}
+            {% else %}
+                <img src="{{ asset('Images/padlock.png')}}" width= "100px"/>
+                <p>Vous devez être connecté pour accéder à cette page.</p>
+            {% endif %}
         </div>
+
 
         <div class="footer">
             <a>Application v.1</a>
