@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Liste des rôles{% endblock %}
+
+{% block body %}
+    <h1>
+        Les roles <a href="{{ path('role_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
+    </h1>
+    {% for i in 0..roles|length - 1 %}
+    <ul>
+        <tr>
+            <br>
+                <b>Libelle du role</b> : {{roles[i].libelle }}
+            </br>
+            <br>
+                <a href="{{ path('role_update' , {id : roles[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
+                <a href="{{ path('role_delete' , {id : roles[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
+            </br>    
+        </tr>
+    </ul>
+    {% endfor %}
+    <pre>
+        Revenir au menu <a href="{{ path('role')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+    </pre>
+{% endblock %}

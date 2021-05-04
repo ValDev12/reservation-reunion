@@ -1,14 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Salles!{% endblock %}
+{% block title %}Les salles de réservation{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;}
-</style>
-<div class="example-wrapper">
     <h1>
-        Les salles de réservation
+        Les salles de réservation <a href="{{ path('salle_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
     </h1>
     {% for i in 0..salles|length - 1 %}
     <ul>
@@ -17,12 +13,15 @@
                 Nom de la salle :{{salles[i].libelle }}
                 <p></p>
                 Nombre de place(s) :{{salles[i].nbPlaces}}
+            </br>
+            <br>
+                <a href="{{ path('salle_update' , {id : salles[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
+                <a href="{{ path('salle_delete' , {id : salles[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
             </br>    
         </tr>
     </ul>
     {% endfor %}
-<pre>
-    Revenir au menu <a href="{{ path('salle')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-</pre>
-</div>
+    <pre>
+        Revenir au menu <a href="{{ path('salle')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
+    </pre>
 {% endblock %}

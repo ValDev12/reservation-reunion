@@ -139,9 +139,6 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "symfony/asset": {
-        "version": "v5.2.4"
-    },
     "symfony/browser-kit": {
         "version": "v5.2.4"
     },

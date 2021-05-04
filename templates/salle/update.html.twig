@@ -1,13 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Ajouter une salle{% endblock %}
+{% block title %}Modification d'une salle{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une salle</h1>
+    <h1>Modification d'une salle</h1>
 
-    <td>{{form(formulaire)}}</td>
+    {{form(formulaire)}}
     <pre>
         Revenir à la liste des salles <a href="{{ path('salle_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
     </pre>
-
 {% endblock %}

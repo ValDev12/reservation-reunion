@@ -27,10 +27,7 @@ class TypeController extends AbstractController
     public function add(Request $request): Response
     {
         $type = new Type();
-        $types = $this->getDoctrine()->getRepository(Type::class)->findAll();
-        $form = $this->createForm(TypeType::class, $type,[
-            'types' => $types,
-         ]);
+        $form = $this->createForm(TypeType::class);
         $form -> handleRequest($request);
         if ($form-> isSubmitted() && $form->isValid())
         {
