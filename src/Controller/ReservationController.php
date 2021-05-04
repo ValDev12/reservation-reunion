@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 use App\Entity\Reservation;
+use App\Entity\Utilisateur;
+use App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,11 +26,14 @@ class ReservationController extends AbstractController
      */
     public function list(): Response
     {
+        if ($this->getUser()!= null){
+        $unUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($this->getUser()->getId());
         $entityManager = $this->getDoctrine()->getManager();
         $res = $this->getDoctrine()->getRepository(Reservation::class)->findAll();
         return $this->render('reservation/AfficheReservation.html.twig', [
-            'reservations' => $res,
+            'reservations' => $res,'utilisateur'=>$unUtilisateur ,
         ]);
+        }
     }
 
 
@@ -120,14 +125,14 @@ class ReservationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         if (!$utilisateur)
         {
-            throw $this->createNotFoundException('Aucun utilisateur avec l\'id '.$id);
+            throw $this->createNotFoundException('Aucun reservation avec l\'id '.$id);
         }
         else
         {
             $em->remove($uneReservation);
             $em->flush();
         }
-        return $this->redirectToRoute('utilisateur');
+        return $this->redirectToRoute('reservation');
     }
 
 
