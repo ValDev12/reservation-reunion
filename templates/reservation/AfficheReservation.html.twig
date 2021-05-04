@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <h1>
+        {% if utilisateur != null %}
+            Réservations <a href="{{ path('add_r', {id : utilisateur.getId()}) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
+        {% endif %}
+    </h1>
+
+    {% for i in reservations %}
+     {% if reservations[i]!= null %}
+    <ul>
+        <tr>
+            <br> 
+                Nom Créateur :{{reservations[i].getCreateur().getNom }}
+                <p></p>
+                Salle :{{reservations[i].getSalle()}}
+                 <p></p>
+                Réserver de {{reservations[i].getDateD}} à {{reservations[i].getDateF}}
+            </br>
+            <br>
+                <a href="{{ path('ResController_update' , {id : reservations[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
+                <a href="{{ path('ResController_delete' , {id : reservations[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
+            </br>    
+        </tr>
+    </ul>
+    {% endif %}
+    {% endfor %}
+
+{% endblock %}
