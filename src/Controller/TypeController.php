@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Type;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use App\Form\TypeForm;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TypeController extends AbstractController
 {
@@ -27,7 +30,7 @@ class TypeController extends AbstractController
     public function add(Request $request): Response
     {
         $type = new Type();
-        $form = $this->createForm(TypeType::class);
+        $form = $this->createForm(TypeForm::class, $type,[]);
         $form -> handleRequest($request);
         if ($form-> isSubmitted() && $form->isValid())
         {
@@ -48,7 +51,7 @@ class TypeController extends AbstractController
     public function list(): Response
     {
         $types = $this->getDoctrine()->getRepository(Type::class)->findAll();
-        return $this->render('type/index.html.twig', [
+        return $this->render('type/listeType.html.twig', [
             'liste_types' => $types,
         ]);
     }
@@ -67,8 +70,7 @@ class TypeController extends AbstractController
                 'Aucun type trouvée avec l\'id'.$id
             );
         }
-        $form = $this->createForm(TypeType::class, $type,[
-        ]);
+        $form = $this->createForm(TypeForm::class, $type,[]);
         $form -> handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -99,6 +101,6 @@ class TypeController extends AbstractController
             $em->remove($type);
             $em->flush();
         }
-        return $this->redirectToRoute('type');
+        return $this->redirectToRoute('typeController_type_list');
     }
 }
