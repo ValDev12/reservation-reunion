@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>
-        Les utilisateurs <a href="{{ path('utilisateur_add' ) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
+        <p>Les utilisateurs</p><a href="{{ path('utilisateur_add' ) }}"><button type="button" class="btn btn-outline-primary">Ajouter</button></a>
     </h1>
     {% if utilisateurs|length > 0 %}
     {% for i in 0..utilisateurs|length - 1 %}
@@ -16,14 +16,11 @@
                 Prénom utilisateur : {{utilisateurs[i].prenom }}
             </br>
             <br>
-                <a href="{{ path('utilisateur_update' , {id : utilisateurs[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
-                <a href="{{ path('utilisateur_delete' , {id : utilisateurs[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
+                <a href="{{ path('utilisateur_update' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
+                <a href="{{ path('utilisateur_delete' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
             </br>    
         </tr>
     </ul>
     {% endfor %}
     {% endif %}
-    <pre>
-        Revenir au menu <a href="{{ path('utilisateur')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-    </pre>
 {% endblock %}
