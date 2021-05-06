@@ -110,11 +110,11 @@ class ReservationController extends AbstractController
             $em->persist($res);
             $em->flush();
 
-            return $this->redirectToRoute('roleController_role_list');
+            return $this->redirectToRoute('list_r');
         }
         else
         {
-            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
+            return $this->render('reservation/AjoutReservation.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
@@ -125,7 +125,7 @@ class ReservationController extends AbstractController
     {
         $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        if (!$utilisateur)
+        if (!$uneReservation)
         {
             throw $this->createNotFoundException('Aucun reservation avec l\'id '.$id);
         }
@@ -134,7 +134,7 @@ class ReservationController extends AbstractController
             $em->remove($uneReservation);
             $em->flush();
         }
-        return $this->redirectToRoute('reservation');
+        return $this->redirectToRoute('list_r');
     }
 
 
