@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{% block title %}Reservation{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('pagetest.css')}}" />
+        <link rel="icon" href="{{ asset('favicon.ico')}}" />
+        <link rel="icon" type="image/png" href="{{ asset('favicon.png')}}" />
     </head>
     <body>
         <div class="topbar">
@@ -48,7 +50,7 @@
 
 
         <div class="footer">
-            <a>Application v.1</a>
+            <a>Application v.1 | {{ "now"|date("d/m/Y") }}</a>
         </div>
     </body>
 </html>
