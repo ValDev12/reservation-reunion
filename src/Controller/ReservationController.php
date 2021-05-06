@@ -3,7 +3,9 @@
 namespace App\Controller;
 use App\Entity\Reservation;
 use App\Entity\Utilisateur;
+use App\Entity\Salle;
 use App\Controller;
+use App\Form\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,14 +28,14 @@ class ReservationController extends AbstractController
      */
     public function list(): Response
     {
-        if ($this->getUser()!= null){
-        $unUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($this->getUser()->getId());
-        $entityManager = $this->getDoctrine()->getManager();
-        $res = $this->getDoctrine()->getRepository(Reservation::class)->findAll();
-        return $this->render('reservation/AfficheReservation.html.twig', [
+       
+            $unUtilisateur = $this->getDoctrine()->getRepository(Utilisateur::class)->find($this->getUser()->getId());
+            $entityManager = $this->getDoctrine()->getManager();
+            $res = $this->getDoctrine()->getRepository(Reservation::class)->findAll();
+            return $this->render('reservation/AfficheReservation.html.twig', [
             'reservations' => $res,'utilisateur'=>$unUtilisateur ,
-        ]);
-        }
+            ]);
+        
     }
 
 
@@ -62,7 +64,7 @@ class ReservationController extends AbstractController
         $users  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         for ($i=0;$i<count($users);$i++)
         {
-            if(in_array($id, $users[$i]->getId()))
+            if($id = $users[$i]->getId())
             {
                 $leCreateur=$users[$i];
                 $i=count($users);
@@ -71,7 +73,7 @@ class ReservationController extends AbstractController
         $uneReservation->setCreateur($leCreateur);
         $usersAll  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
         $salles  = $this->getDoctrine()->getRepository(Salle::class)->findAll();
-        $form=$this->createForm(ReservationType::class ,$uneReservation,['utilisateurs'=>$usersAll,'salles'=>$salles,]);
+        $form=$this->createForm(ReservationType::class ,$uneReservation,['participant'=>$usersAll,'salles'=>$salles,]);
 
         $form-> handleRequest($req);
         if($form->isSubmitted())
@@ -90,30 +92,28 @@ class ReservationController extends AbstractController
     /**
      * @Route("/reservation/update/{id}", name="ResController_update")
      */
-    public function update($id, Request $request): Response
+    public function update($id, Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
-        if(!$res)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun reservation trouvée avec l\'id'.$id
-            );
-        }
-        $form = $this->createForm(ReservationController::class, $uneReservation,[]);
-        $form -> handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($res);
-            $em->flush();
+        $uneReservation= $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $usersAll  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        $salles  = $this->getDoctrine()->getRepository(Salle::class)->findAll();
+        $form=$this->createForm(ReservationType::class ,$uneReservation,['participant'=>$usersAll,'salles'=>$salles,]);
 
-            return $this->redirectToRoute('roleController_role_list');
+        $form-> handleRequest($req);
+        if($form->isSubmitted())
+        {
+           $entityManager->persist($uneReservation);
+            $entityManager->flush();
+            $response=$this->redirectToRoute('list_r');
         }
         else
         {
-            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
-        }
+            $response= $this->render('reservation/AjoutReservation.html.twig',['formulaire' => $form->createView(), ]);
+        }   
+             return $response;
+        
     }
 
      /**
@@ -123,7 +123,7 @@ class ReservationController extends AbstractController
     {
         $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        if (!$utilisateur)
+        if (!$uneReservation)
         {
             throw $this->createNotFoundException('Aucun reservation avec l\'id '.$id);
         }
@@ -132,7 +132,7 @@ class ReservationController extends AbstractController
             $em->remove($uneReservation);
             $em->flush();
         }
-        return $this->redirectToRoute('reservation');
+        return $this->redirectToRoute('list_r');
     }
 
 
