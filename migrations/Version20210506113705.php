@@ -49,9 +49,9 @@ final class Version20210506113705 extends AbstractMigration
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (1, "Administrateur", "Admin", "admin@gsb.com", "admin123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (2, "SuperUser", "SuperUser", "super.user@gsb.com", "superUser123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (3, "User", "User", "user@gsb.com", "user123*")');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("admin@gsb.com",NULL, "admin123*", 1)');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("super.user@gsb.com",NULL, "superUser123*", 1)');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("user@gsb.com",NULL, "user123*", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("admin@gsb.com", "admin123*", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("super.user@gsb.com", "superUser123*", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("user@gsb.com", "user123*", 1)');
     }
 
     public function down(Schema $schema): void
