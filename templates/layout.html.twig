@@ -16,7 +16,7 @@
             {% if app.user %}
                 <a href="{{ path('app_logout') }}">DÉCONNEXION</a>
                 <a> | </a>
-                <a href="/">RÉSERVER</a>
+                <a href="{{ path('add_r', {id : app.user.id} ) }}">RÉSERVER</a>
                 <a> | </a>
                 <a href="{{ path('list_r')}}">CONSULTER</a>
                 <a> | </a>

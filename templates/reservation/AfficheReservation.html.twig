@@ -6,25 +6,23 @@
             Réservations <a href="{{ path('add_r', {id : utilisateur.getId()}) }}"><img src= "{{ asset('Images/index.png')}}" height="40"></a>
         {% endif %}
     </h1>
-
-    {% for i in reservations %}
-     {% if reservations[i]!= null %}
+    {% if reservations|length > 0 %}
+    {% for reservation in reservations %}
     <ul>
         <tr>
             <br> 
-                Nom Créateur :{{reservations[i].getCreateur().getNom }}
+                Nom Créateur : {{reservation.getCreateur().getNom()}}
                 <p></p>
-                Salle :{{reservations[i].getSalle()}}
+                Salle :{{reservation.getSalle().getLibelle()}}
                  <p></p>
-                Réserver de {{reservations[i].getDateD}} à {{reservations[i].getDateF}}
+                Réserver de {{reservation.getDateD|date("Y-m-d H:i:s")}} à {{reservation.getDateF|date("Y-m-d H:i:s")}}
             </br>
             <br>
-                <a href="{{ path('ResController_update' , {id : reservations[i].id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
-                <a href="{{ path('ResController_delete' , {id : reservations[i].id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
+                <a href="{{ path('ResController_update' , {id : reservation.id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
+                <a href="{{ path('ResController_delete' , {id : reservation.id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
             </br>    
         </tr>
     </ul>
-    {% endif %}
     {% endfor %}
-
+    {% endif %}
 {% endblock %}
