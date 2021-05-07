@@ -3,9 +3,20 @@
 {% block title %}Ajouter une salle{% endblock %}
 
 {% block body %}
-    <h1>Ajouter une salle</h1>
-
-    <td>{{form(formulaire)}}</td>
-
+{{ form_start(formulaire) }}
+<div class="card text-center border-info mb-3">
+    <div class="card-header">
+        <h5>Ajouter une salle</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.libelle) }}
+        {{ form_row(formulaire.nbPlaces) }}
+        {{ form_row(formulaire.service) }}
+        {{ form_row(formulaire.type) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 
 {% endblock %}
