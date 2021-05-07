@@ -18,8 +18,8 @@
        <div class="menu">
             
             {% if app.user %}
-                <a href="{{ path('app_logout') }}">DÉCONNEXION</a>
-                <a> | </a>
+                <a>👤 {{ app.user.username }}</a>
+                <a href="{{ path('app_logout') }}">[DÉCONNEXION]</a></br>
                 <a href="/">ACCUEIL</a>
                 <a> | </a>
                 <a href="{{ path('add_r', {id : app.user.id} ) }}">RÉSERVER</a>
