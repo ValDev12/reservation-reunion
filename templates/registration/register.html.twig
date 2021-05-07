@@ -13,12 +13,12 @@
             <h5>Inscription</h5>
         </div>
         <div class="card-body">
-            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.email, {label: '✉ Mail'}) }}
             {{ form_row(registrationForm.plainPassword, {
-            label: 'Mot de passe'}) }}
+            label: '🔑 Mot de passe'}) }}
         </div>
         <div class="card-footer text-muted">
-            <button type="submit" class="btn btn-outline-success">Inscription</button>
+            <button type="submit" class="btn btn-success">Valider</button>
         </div>
     </div>
     {{ form_end(registrationForm) }}
