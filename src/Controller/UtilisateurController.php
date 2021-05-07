@@ -43,7 +43,7 @@ class UtilisateurController extends AbstractController
   
             $entity->flush();
   
-            return $this-> redirectToRoute('utilisateur_list');
+            return $this-> redirectToRoute('utilisateur');
           
         }
         else

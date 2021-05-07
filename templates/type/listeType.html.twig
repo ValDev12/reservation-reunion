@@ -2,20 +2,16 @@
 
 {% block body %}
     <h1>
-        <p>Liste des types</p><a href="{{path('typeController_type_add')}}"><button type="button" class="btn btn-outline-primary">Ajouter</button></a>
+        <p>Liste des types</p><a href="{{path('typeController_type_add')}}"><button type="button" class="btn btn-primary">Ajouter</button></a>
     </h1>
     {% for types in liste_types %}
-        <tr>
-            <td> 
-                <br> 
-                    {{types.nom}}
-                    </br>
-                    <br>
-                        <a href="{{path('typeController_type_update',{id:types.id})}}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                        <a href="{{path('typeController_type_delete',{id:types.id})}}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
-                    </br>
-                </br> 
-            </td>
-        </tr>
+    <div class="card">
+        <h5 class="card-header">{{types.nom}}</h5>
+        <div class="card-body">
+            <a href="{{path('typeController_type_update',{id:types.id})}}"><button type="button" class="btn btn-warning">Modifier</button></a>
+            <a href="{{path('typeController_type_delete',{id:types.id})}}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+        </div>
+    </div>
+    </p>
     {% endfor %}
 {% endblock %}

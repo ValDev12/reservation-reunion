@@ -10,10 +10,14 @@
     {% endif %}
 
     {% if app.user %}
-        <div class="mb-3">
+        <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-header">🔓 Connecté</div>
+        <div class="card-body">
             <img src="{{ asset('Images/verified-account.png')}}" width= "100px"/></br>
-            Vous êtes connecté avec {{ app.user.username }}
+            <p class="card-text">Vous êtes connecté en tant que {{ app.user.username }}</p>
         </div>
+         <a href="{{ path('app_logout')}}"><button type="button" class="btn btn-danger">Se déconnecter</button></a>
+    </div>
 
     {% else %}
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
@@ -27,7 +31,7 @@
             value="{{ csrf_token('authenticate') }}"
         >
         <p></p>
-        <button class="btn btn-outline-primary" type="submit">
+        <button class="btn btn-primary" type="submit">
             Connexion
         </button>
     {% endif %}
