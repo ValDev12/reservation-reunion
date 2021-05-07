@@ -10,7 +10,7 @@
     </h1>
     {% if reservations|length > 0 %}
     {% for reservation in reservations %}
-    <div class="card">
+    <div class="card border-secondary mb-3">
         <h5 class="card-header">{{reservation.getCreateur().getNom()}}</h5>
         <div class="card-body">
             <h5 class="card-title">Salle: {{reservation.getSalle().getLibelle()}}</h5>
