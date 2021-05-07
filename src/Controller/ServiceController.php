@@ -55,7 +55,7 @@ class ServiceController extends AbstractController
   
               $entity->flush();
   
-              return $this-> redirectToRoute('service_list');
+              return $this-> redirectToRoute('service');
           
           }
           else

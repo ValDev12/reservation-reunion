@@ -8,17 +8,14 @@
     </h1>
     {% if services|length > 0 %}
     {% for i in 0..services|length - 1 %}
-    <ul>
-        <tr>
-            <br>
-                Nom du service :{{services[i].nom }}
-            </br>
-            <br>
-                <a href="{{ path('service_update' , {id : services[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                <a href="{{ path('service_delete' , {id : services[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
-            </br>    
-        </tr>
-    </ul>
+    <div class="card">
+        <h5 class="card-header">{{services[i].nom }}</h5>
+        <div class="card-body">
+            <a href="{{ path('service_update' , {id : services[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
+            <a href="{{ path('service_delete' , {id : services[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
+        </div>
+    </div>
+    </p>
     {% endfor %}
     {% endif %}
 {% endblock %}

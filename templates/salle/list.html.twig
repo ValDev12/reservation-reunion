@@ -8,19 +8,15 @@
     </h1>
     {% if salles|length > 0 %}
     {% for i in 0..salles|length - 1 %}
-    <ul>
-        <tr>
-            <br>
-                Nom de la salle :{{salles[i].libelle }}
-                <p></p>
-                Nombre de place(s) :{{salles[i].nbPlaces}}
-            </br>
-            <br>
-                <a href="{{ path('salle_update' , {id : salles[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                <a href="{{ path('salle_delete' , {id : salles[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
-            </br>    
-        </tr>
-    </ul>
+    <div class="card">
+        <h5 class="card-header">{{salles[i].libelle }}</h5>
+        <div class="card-body">
+            <h5 class="card-title">Nombre de place(s): {{salles[i].nbPlaces}}</h5>
+            <a href="{{ path('salle_update' , {id : salles[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
+            <a href="{{ path('salle_delete' , {id : salles[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
+        </div>
+    </div>
+    </p>   
     {% endfor %}
     {% endif %}
 {% endblock %}

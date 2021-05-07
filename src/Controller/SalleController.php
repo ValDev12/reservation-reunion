@@ -55,7 +55,7 @@ class SalleController extends AbstractController
   
               $entity->flush();
   
-              return $this-> redirectToRoute('salle_list');
+              return $this-> redirectToRoute('salle');
           
           }
           else
