@@ -4,15 +4,15 @@
 
 {% block body %}
     <h1>
-        <p>Les rôles</p><a href="{{ path('role_add' ) }}"><button type="button" class="btn btn-outline-primary">Ajouter</button></a>
+        <p>Les rôles</p><a href="{{ path('role_add' ) }}"><button type="button" class="btn btn-primary">Ajouter</button></a>
     </h1>
     {% if roles|length > 0 %}
     {% for i in 0..roles|length - 1 %}
     <div class="card">
         <h5 class="card-header">{{roles[i].libelle }}</h5>
         <div class="card-body">
-            <a href="{{ path('role_update' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-            <a href="{{ path('role_delete' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a> 
+            <a href="{{ path('role_update' , {id : roles[i].id}) }}"><button type="button" class="btn btn-warning">Modifier</button></a>
+            <a href="{{ path('role_delete' , {id : roles[i].id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a> 
         </div>
     </div>
     </p>
