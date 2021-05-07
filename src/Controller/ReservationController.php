@@ -110,7 +110,7 @@ class ReservationController extends AbstractController
         }
         else
         {
-            $response= $this->render('reservation/AjoutReservation.html.twig',['formulaire' => $form->createView(), ]);
+            $response= $this->render('reservation/Update.html.twig',['formulaire' => $form->createView(), ]);
         }   
              return $response;
         

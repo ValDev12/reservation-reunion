@@ -1,20 +1,21 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Ajout d'un utilisateur{% endblock %}
 
 {% block body %}
 {{ form_start(formulaire) }}
-<div class="card text-center border-info mb-3">
+<div class="card text-center border-warning mb-3">
     <div class="card-header">
-        <h5>Ajout d'un utilisateur</h5>
+        <h5>Modification Réservation</h5>
     </div>
     <div class="card-body">
-        {{ form_row(formulaire.nom) }}
-        {{ form_row(formulaire.prenom) }}
-        {{ form_row(formulaire.roles) }}
+        {{ form_row(formulaire.dateD) }}
+        {{ form_row(formulaire.dateF) }}
+        {{ form_row(formulaire.participant) }}
+        {{ form_row(formulaire.salle) }}
     </div>
     <div class="card-footer text-muted">
         {{ form_end(formulaire) }}        
     </div>
 </div>
+
 {% endblock %}

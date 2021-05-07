@@ -3,6 +3,16 @@
 {% block title %}Ajout d'un type{% endblock %}
 
 {% block body %}
-    <h1> Page de saisie de nouveaux types de salle </h1>
-    {{ form(formulaire) }}
+{{ form_start(formulaire) }}
+<div class="card text-center border-info mb-3">
+    <div class="card-header">
+        <h5>Ajout d'un type</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.nom) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 {% endblock %}
