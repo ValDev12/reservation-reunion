@@ -29,7 +29,7 @@ final class Version20210506113705 extends AbstractMigration
         $this->addSql('CREATE TABLE salle_service (salle_id INT NOT NULL, service_id INT NOT NULL, INDEX IDX_CCABF683DC304035 (salle_id), INDEX IDX_CCABF683ED5CA9E6 (service_id), PRIMARY KEY(salle_id, service_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE service (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE type (id INT AUTO_INCREMENT NOT NULL, nom VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, is_verified TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE users (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NULL, password VARCHAR(255) NOT NULL, is_verified TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_1483A5E9E7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE utilisateur (id INT AUTO_INCREMENT NOT NULL, roles_id INT DEFAULT NULL, nom VARCHAR(50) NOT NULL, prenom VARCHAR(50) NOT NULL, identifiant VARCHAR(50) NOT NULL, mdp VARCHAR(50) NOT NULL, INDEX IDX_1D1C63B338C751C4 (roles_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C8495573A201E5 FOREIGN KEY (createur_id) REFERENCES utilisateur (id)');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C84955DC304035 FOREIGN KEY (salle_id) REFERENCES salle (id)');
@@ -49,14 +49,16 @@ final class Version20210506113705 extends AbstractMigration
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (1, "Administrateur", "Admin", "admin@gsb.com", "admin123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (2, "SuperUser", "SuperUser", "super.user@gsb.com", "superUser123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (3, "User", "User", "user@gsb.com", "user123*")');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("admin@gsb.com",NULL, "admin123*", 1)');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("super.user@gsb.com",NULL, "superUser123*", 1)');
-        $this->addSql('INSERT INTO users (email,roles, password, is_verified) VALUES ("user@gsb.com",NULL, "user123*", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("admin@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$QXVEcEh3YWk5cGh5ZzdLWg$+7lXY4KVakSlfAQ2P1uV/By89rLDcWv0Rc/9A0t7Ggc", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("super.user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$SnFUYWRPYy4vcnRnVDBmYQ$A2RA8EZPQ8ckfwYWI+fg5hQYgJV73nn6EwEF7Ku6h5U", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$LjNqcXR4NXE4dUg0d0w3Qg$W596sWuthv4bJ2IL2qPUXdMyhAJoBYjUwk3sAkBNNY0", 1)');
+        $this->addSql('ALTER TABLE utilisateur CHANGE identifiant identifiant VARCHAR(50) NOT NULL, CHANGE mdp mdp VARCHAR(50) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE utilisateur CHANGE identifiant identifiant VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE mdp mdp VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE reservation_utilisateur DROP FOREIGN KEY FK_D170BEEFB83297E7');
         $this->addSql('ALTER TABLE utilisateur DROP FOREIGN KEY FK_1D1C63B338C751C4');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C84955DC304035');
