@@ -1,20 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello UtilisateurController!{% endblock %}
+{% block title %}Nouvel utilisateur{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/carri/Documents/GitHub/reservation-reunion/src/Controller/UtilisateurController.php'|file_link(0) }}">src/Controller/UtilisateurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/carri/Documents/GitHub/reservation-reunion/templates/utilisateur/index.html.twig'|file_link(0) }}">templates/utilisateur/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header">Nouvel utilisateur 👤</div>
+        <div class="card-body">
+            <img src="{{ asset('Images/verified-account.png')}}" width= "100px"/></br>
+            <p class="card-text">L'utilisateur a bien été créé!</p>
+        </div>
+    </div>
+    <a href="{{ path('utilisateur_add') }}"><button type="button" class="btn btn-outline-primary">➕ Créer une nouvel utilisateur</button></a>
+    <a href="{{ path('utilisateur_list')}}"><button type="button" class="btn btn-outline-secondary">📝 Liste des utilisateurs</button></a>
 {% endblock %}
