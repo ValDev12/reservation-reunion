@@ -19,7 +19,8 @@
             
             {% if app.user %}
                 <a>👤 {{ app.user.username }}</a>
-                <a href="{{ path('app_logout') }}">[DÉCONNEXION]</a></br>
+                <a href="{{ path('app_logout') }}">[DÉCONNEXION]</a>
+                <a href="{{ path('app_register')}}">[INSCRIPTION]</a></br>
                 <a href="/">ACCUEIL</a>
                 <a> | </a>
                 <a href="{{ path('add_r', {id : app.user.id} ) }}">RÉSERVER</a>
@@ -35,8 +36,6 @@
                 <a href="{{ path('salle_list')}}">SALLE</a>
                 <a> | </a>
                 <a href="{{ path('service_list')}}">SERVICE</a>
-                <a> | </a>
-                <a href="{{ path('app_register')}}">INSCRIPTION</a>
             {% else %}
                 <a href="{{ path('app_login')}}">CONNEXION</a>
             {% endif %}
@@ -49,8 +48,14 @@
             {% if app.user or app.request.get('_route') == 'app_login' %}
                 {% block body %}{% endblock %}
             {% else %}
-                <img src="{{ asset('Images/padlock.png')}}" width= "100px"/>
-                <p>Vous devez être connecté pour accéder au site.</p>
+            <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+            <div class="card-header">🔒 Accès non autorisé</div>
+            <div class="card-body">
+                <img src="{{ asset('Images/padlock.png')}}" width= "100px"/></br>
+                <p class="card-text">Vous devez être connecté pour accéder au site.</p>
+            </div>
+            <a href="{{ path('app_login')}}"><button type="button" class="btn btn-primary">🔑 Se connecter</button></a>
+            </div>
             {% endif %}
         </div>
 
