@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Connexion!{% endblock %}
+{% block title %}Connexion - Réservation{% endblock %}
 
 {% block body %}
 
@@ -27,7 +27,7 @@
             value="{{ csrf_token('authenticate') }}"
         >
         <p></p>
-        <button class="btn btn-lg btn-primary" type="submit">
+        <button class="btn btn-outline-primary" type="submit">
             Connexion
         </button>
     {% endif %}
