@@ -16,8 +16,8 @@
             <img src="{{ asset('Images/verified-account.png')}}" width= "100px"/></br>
             <p class="card-text">Vous êtes connecté en tant que {{ app.user.username }}</p>
         </div>
-        <a href="{{ path('app_logout')}}"><button type="button" class="btn btn-danger">Se déconnecter</button></a>
-    </div>
+         <a href="{{ path('app_logout')}}"><button type="button" class="btn btn-danger">✖ Se déconnecter</button></a>
+        </div>
 
     {% else %}
         <div class="card text-center border-primary mb-3">

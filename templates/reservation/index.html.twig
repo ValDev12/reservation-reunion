@@ -4,12 +4,12 @@
 
 {% block body %}
     <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-        <div class="card-header">Réservation</div>
+        <div class="card-header">Nouvelle réservation</div>
         <div class="card-body">
             <img src="{{ asset('Images/calendar.png')}}" width= "100px"/></br>
             <p class="card-text">Votre réservation a bien été ajouté!</p>
         </div>
     </div>
-    <a href="{{ path('add_r', {id : app.user.id} ) }}"><button type="button" class="btn btn-outline-primary">Créer une nouvelle réservation</button></a>
-    <a href="{{ path('list_r')}}"><button type="button" class="btn btn-outline-secondary">Liste des réservations</button></a>
+    <a href="{{ path('add_r', {id : app.user.id} ) }}"><button type="button" class="btn btn-outline-primary">➕ Créer une nouvelle réservation</button></a>
+    <a href="{{ path('list_r')}}"><button type="button" class="btn btn-outline-secondary">📝 Liste des réservations</button></a>
 {% endblock %}
