@@ -80,7 +80,7 @@ class ReservationController extends AbstractController
         {
            $entityManager->persist($uneReservation);
             $entityManager->flush();
-            $response=$this->redirectToRoute('list_r');
+            $response=$this->redirectToRoute('reservation');
         }
         else
         {
