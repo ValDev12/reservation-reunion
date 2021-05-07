@@ -49,9 +49,9 @@ final class Version20210506113705 extends AbstractMigration
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (1, "Administrateur", "Admin", "admin@gsb.com", "admin123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (2, "SuperUser", "SuperUser", "super.user@gsb.com", "superUser123*")');
         $this->addSql('INSERT INTO utilisateur (roles_id, nom, prenom, identifiant, mdp) VALUES (3, "User", "User", "user@gsb.com", "user123*")');
-        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("admin@gsb.com", "admin123*", 1)');
-        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("super.user@gsb.com", "superUser123*", 1)');
-        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("user@gsb.com", "user123*", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("admin@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$QXVEcEh3YWk5cGh5ZzdLWg$+7lXY4KVakSlfAQ2P1uV/By89rLDcWv0Rc/9A0t7Ggc", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("super.user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$SnFUYWRPYy4vcnRnVDBmYQ$A2RA8EZPQ8ckfwYWI+fg5hQYgJV73nn6EwEF7Ku6h5U", 1)');
+        $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$LjNqcXR4NXE4dUg0d0w3Qg$W596sWuthv4bJ2IL2qPUXdMyhAJoBYjUwk3sAkBNNY0", 1)');
     }
 
     public function down(Schema $schema): void
