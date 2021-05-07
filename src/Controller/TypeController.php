@@ -37,7 +37,7 @@ class TypeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($type);
             $em->flush();
-            return $this->redirectToRoute('typeController_type_list',);
+            return $this->redirectToRoute('type',);
         }
         else
         {
