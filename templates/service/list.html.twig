@@ -8,7 +8,7 @@
     </h1>
     {% if services|length > 0 %}
     {% for i in 0..services|length - 1 %}
-    <div class="card">
+    <div class="card border-secondary mb-3">
         <h5 class="card-header">{{services[i].nom }}</h5>
         <div class="card-body">
             <a href="{{ path('service_update' , {id : services[i].id}) }}"><button type="button" class="btn btn-warning">Modifier</button></a>

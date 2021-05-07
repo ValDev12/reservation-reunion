@@ -5,7 +5,7 @@
         <p>Liste des types</p><a href="{{path('typeController_type_add')}}"><button type="button" class="btn btn-primary">Ajouter</button></a>
     </h1>
     {% for types in liste_types %}
-    <div class="card">
+    <div class="card border-secondary mb-3">
         <h5 class="card-header">{{types.nom}}</h5>
         <div class="card-body">
             <a href="{{path('typeController_type_update',{id:types.id})}}"><button type="button" class="btn btn-warning">Modifier</button></a>
