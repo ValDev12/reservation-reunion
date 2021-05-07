@@ -18,8 +18,8 @@
                 Réserver de {{reservation.getDateD|date("Y-m-d H:i:s")}} à {{reservation.getDateF|date("Y-m-d H:i:s")}}
             </br>
             <br>
-                <a href="{{ path('ResController_update' , {id : reservation.id}) }}"><img src= "{{ asset('Images/im.jpg')}}" height="30"></a>
-                <a href="{{ path('ResController_delete' , {id : reservation.id}) }}"><img src= "{{ asset('Images/images.png')}}" height="30"></a>
+                <a href="{{ path('ResController_update' , {id : reservation.id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
+                <a href="{{ path('ResController_delete' , {id : reservation.id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
             </br>    
         </tr>
     </ul>

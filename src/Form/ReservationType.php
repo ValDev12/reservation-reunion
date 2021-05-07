@@ -9,14 +9,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateD')
-            ->add('dateF')
+            ->add('dateD', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Date Début',
+            ])
+            ->add('dateF', DateType::class, [
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Date Fin',
+            ])
             ->add('participant', EntityType::class, [
                 'class' => Utilisateur::class,
                 'choices' => $options['participant'],
@@ -28,7 +37,7 @@ class ReservationType extends AbstractType
                 'choices' => $options['salles'],
                 'choice_label' => 'libelle',
             ])
-            ->add('envoie',SubmitType::class);
+            ->add('Valider',SubmitType::class);
         ;
     }
 
