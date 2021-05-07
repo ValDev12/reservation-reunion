@@ -14,16 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TypeController extends AbstractController
 {
-    /**
-     * @Route("/type", name="type")
-     */
-    public function index(): Response
-    {
-        return $this->render('type/index.html.twig', [
-            'controller_name' => 'TypeController',
-        ]);
-    }
-
      /**
      * @Route("/type/add", name="typeController_type_add")
      */
@@ -81,7 +71,7 @@ class TypeController extends AbstractController
         }
         else
         {
-            return $this->render('type/addType.html.twig', ['formulaire' => $form->createView(),]);
+            return $this->render('type/updateType.html.twig', ['formulaire' => $form->createView(),]);
         }
     }
 
@@ -90,11 +80,15 @@ class TypeController extends AbstractController
      */
     public function delete($id): Response
     {
-        $type = $this->getDoctrine()->getRepository(Type::class)->find($id);
         $em = $this->getDoctrine()->getManager();
+        $type = $this->getDoctrine()->getRepository(Type::class)->find($id);
         if (!$type)
         {
             throw $this->createNotFoundException('Aucun type avec l\'id '.$id);
+        }
+        elseif($type->getSalles() == NULL)
+        {
+            throw $this->createNotFoundException('Le type est lier à une salle'.$type->getNom());
         }
         else
         {
