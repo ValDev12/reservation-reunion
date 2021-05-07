@@ -54,3 +54,7 @@ body {
 .card {
     margin: 0 auto;
 }
+
+.form-check .form-check-input {
+    float:none !important;
+}
