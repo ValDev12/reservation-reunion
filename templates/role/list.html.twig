@@ -8,16 +8,14 @@
     </h1>
     {% if roles|length > 0 %}
     {% for i in 0..roles|length - 1 %}
-    <ul>
-        <tr>
-            <br>
-                libelle du role : {{roles[i].libelle }}
-                </br>
-            </br>
-                <a href="{{ path('role_update' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                <a href="{{ path('role_delete' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>  
-        </tr>
-    </ul>
+    <div class="card">
+        <h5 class="card-header">{{roles[i].libelle }}</h5>
+        <div class="card-body">
+            <a href="{{ path('role_update' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
+            <a href="{{ path('role_delete' , {id : roles[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a> 
+        </div>
+    </div>
+    </p>
     {% endfor %}
     {% endif %}
 {% endblock %}

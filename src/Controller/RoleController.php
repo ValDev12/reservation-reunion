@@ -43,7 +43,7 @@ class RoleController extends AbstractController
   
             $entity->flush();
   
-            return $this-> redirectToRoute('role_list');
+            return $this-> redirectToRoute('role');
           
         }
         else
