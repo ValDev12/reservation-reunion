@@ -52,11 +52,13 @@ final class Version20210506113705 extends AbstractMigration
         $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("admin@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$QXVEcEh3YWk5cGh5ZzdLWg$+7lXY4KVakSlfAQ2P1uV/By89rLDcWv0Rc/9A0t7Ggc", 1)');
         $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("super.user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$SnFUYWRPYy4vcnRnVDBmYQ$A2RA8EZPQ8ckfwYWI+fg5hQYgJV73nn6EwEF7Ku6h5U", 1)');
         $this->addSql('INSERT INTO users (email, password, is_verified) VALUES ("user@gsb.com", "$argon2id$v=19$m=65536,t=4,p=1$LjNqcXR4NXE4dUg0d0w3Qg$W596sWuthv4bJ2IL2qPUXdMyhAJoBYjUwk3sAkBNNY0", 1)');
+        $this->addSql('ALTER TABLE utilisateur CHANGE identifiant identifiant VARCHAR(50) NOT NULL, CHANGE mdp mdp VARCHAR(50) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE utilisateur CHANGE identifiant identifiant VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, CHANGE mdp mdp VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE reservation_utilisateur DROP FOREIGN KEY FK_D170BEEFB83297E7');
         $this->addSql('ALTER TABLE utilisateur DROP FOREIGN KEY FK_1D1C63B338C751C4');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C84955DC304035');
