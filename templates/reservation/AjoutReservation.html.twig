@@ -2,7 +2,20 @@
 
 
 {% block body %}
-    <h1>Ajout Réservation</h1>
+{{ form_start(formulaire) }}
+<div class="card text-center border-info mb-3">
+    <div class="card-header">
+        <h5>Ajout Réservation</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.dateD) }}
+        {{ form_row(formulaire.dateF) }}
+        {{ form_row(formulaire.participant) }}
+        {{ form_row(formulaire.salle) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 
-    <td>{{form(formulaire)}}</td>
 {% endblock %}

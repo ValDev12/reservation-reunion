@@ -1,9 +1,22 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Modification d'une salle{% endblock %}
+{% block title %}Modification une salle{% endblock %}
 
 {% block body %}
-    <h1>Modification d'une salle</h1>
+{{ form_start(formulaire) }}
+<div class="card text-center border-warning mb-3">
+    <div class="card-header">
+        <h5>Modification une salle</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.libelle) }}
+        {{ form_row(formulaire.nbPlaces) }}
+        {{ form_row(formulaire.service) }}
+        {{ form_row(formulaire.type) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 
-    {{form(formulaire)}}
 {% endblock %}

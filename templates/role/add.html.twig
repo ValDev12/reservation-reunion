@@ -1,8 +1,18 @@
 {% extends 'layout.html.twig' %}
-{% block title %}Ajouter un rôle{% endblock %}
+{% block title %}Ajout d'un rôle{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un rôle</h1>
-
-    <td>{{form(formulaire)}}</td>
+    {{ form_start(formulaire) }}
+<div class="card text-center border-info mb-3">
+    <div class="card-header">
+        <h5>Ajout d'un rôle</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.libelle) }}
+        {{ form_row(formulaire.utilisateurs) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 {% endblock %}
