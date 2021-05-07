@@ -92,30 +92,28 @@ class ReservationController extends AbstractController
     /**
      * @Route("/reservation/update/{id}", name="ResController_update")
      */
-    public function update($id, Request $request): Response
+    public function update($id, Request $req): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
-        if(!$res)
-        {
-            throw $this->createNotFoundException
-            (
-                'Aucun reservation trouvée avec l\'id'.$id
-            );
-        }
-        $form = $this->createForm(ReservationController::class, $uneReservation,[]);
-        $form -> handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($res);
-            $em->flush();
+        $uneReservation= $this->getDoctrine()->getRepository(Reservation::class)->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        $usersAll  = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        $salles  = $this->getDoctrine()->getRepository(Salle::class)->findAll();
+        $form=$this->createForm(ReservationType::class ,$uneReservation,['participant'=>$usersAll,'salles'=>$salles,]);
 
-            return $this->redirectToRoute('roleController_role_list');
+        $form-> handleRequest($req);
+        if($form->isSubmitted())
+        {
+           $entityManager->persist($uneReservation);
+            $entityManager->flush();
+            $response=$this->redirectToRoute('list_r');
         }
         else
         {
-            return $this->render('role/addRole.html.twig', ['formulaire' => $form->createView(),]);
-        }
+            $response= $this->render('reservation/AjoutReservation.html.twig',['formulaire' => $form->createView(), ]);
+        }   
+             return $response;
+        
     }
 
      /**
@@ -125,7 +123,7 @@ class ReservationController extends AbstractController
     {
         $uneReservation = $this->getDoctrine()->getRepository(Reservation::class)->find($id);
         $em = $this->getDoctrine()->getManager();
-        if (!$utilisateur)
+        if (!$uneReservation)
         {
             throw $this->createNotFoundException('Aucun reservation avec l\'id '.$id);
         }
@@ -134,7 +132,7 @@ class ReservationController extends AbstractController
             $em->remove($uneReservation);
             $em->flush();
         }
-        return $this->redirectToRoute('reservation');
+        return $this->redirectToRoute('list_r');
     }
 
 

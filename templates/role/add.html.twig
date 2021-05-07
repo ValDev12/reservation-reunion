@@ -1,12 +1,8 @@
 {% extends 'layout.html.twig' %}
-
 {% block title %}Ajouter un rôle{% endblock %}
 
 {% block body %}
     <h1>Ajouter un rôle</h1>
 
     <td>{{form(formulaire)}}</td>
-    <pre>
-        Revenir à la liste des roles <a href="{{ path('role_list')}}"><img src= "{{ asset('Images/i2.jpg')}}" height="30"></a>
-    </pre>
 {% endblock %}
