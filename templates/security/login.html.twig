@@ -16,26 +16,31 @@
             <img src="{{ asset('Images/verified-account.png')}}" width= "100px"/></br>
             <p class="card-text">Vous êtes connecté en tant que {{ app.user.username }}</p>
         </div>
-         <a href="{{ path('app_logout')}}"><button type="button" class="btn btn-danger">Se déconnecter</button></a>
+        <a href="{{ path('app_logout')}}"><button type="button" class="btn btn-danger">Se déconnecter</button></a>
     </div>
 
     {% else %}
-        <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-        <label for="inputEmail">✉ Mail</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-        <p></p>
-        <label for="inputPassword">🔑 Mot de passe</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" required>
+        <div class="card text-center border-primary mb-3">
+            <div class="card-header">
+                <h5>Connexion</h5>
+            </div>
+            <div class="card-body">
+                <label for="inputEmail">✉ Mail</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                <p></p>
+                <label for="inputPassword">🔑 Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" required>
 
-        <input type="hidden" name="_csrf_token"
-            value="{{ csrf_token('authenticate') }}"
-        >
-        <p></p>
-        <button class="btn btn-primary" type="submit">
-            Connexion
-        </button>
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+            </div>
+            <div class="card-footer text-muted">
+                <button class="btn btn-primary" type="submit">
+                    Connexion
+                </button>
+            </div>
+        </div>
     {% endif %}
-
-    
 </form>
 {% endblock %}

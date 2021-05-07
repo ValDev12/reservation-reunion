@@ -8,7 +8,7 @@
     </h1>
     {% if salles|length > 0 %}
     {% for i in 0..salles|length - 1 %}
-    <div class="card">
+    <div class="card border-secondary mb-3">
         <h5 class="card-header">{{salles[i].libelle }}</h5>
         <div class="card-body">
             <h5 class="card-title">Nombre de place(s): {{salles[i].nbPlaces}}</h5>
