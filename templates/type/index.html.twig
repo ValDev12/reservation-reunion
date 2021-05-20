@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Nouveau type{% endblock %}
+
+{% block body %}
+    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+        <div class="card-header">Nouveau type</div>
+        <div class="card-body">
+            <img src="{{ asset('Images/calendar.png')}}" width= "100px"/></br>
+            <p class="card-text">Le type a bien été créé!</p>
+        </div>
+    </div>
+    <a href="{{ path('typeController_type_add') }}"><button type="button" class="btn btn-outline-primary">➕ Créer une nouveau type</button></a>
+    <a href="{{ path('typeController_type_list')}}"><button type="button" class="btn btn-outline-secondary">📝 Liste des types</button></a>
+{% endblock %}

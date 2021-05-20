@@ -1,9 +1,18 @@
 {% extends 'layout.html.twig' %}
-
 {% block title %}Modification d'un rôle{% endblock %}
 
 {% block body %}
-    <h1>Modification d'un rôle</h1>
-
-    {{form(formulaire)}}
+    {{ form_start(formulaire) }}
+<div class="card text-center border-warning mb-3">
+    <div class="card-header">
+        <h5>Modification d'un rôle</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.libelle) }}
+        {{ form_row(formulaire.utilisateurs) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 {% endblock %}

@@ -3,7 +3,18 @@
 {% block title %}Modification d'un utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Modification d'un utilisateur</h1>
-
-    {{form(formulaire)}}
+{{ form_start(formulaire) }}
+<div class="card text-center border-warning mb-3">
+    <div class="card-header">
+        <h5>Modification d'un utilisateur</h5>
+    </div>
+    <div class="card-body">
+        {{ form_row(formulaire.nom) }}
+        {{ form_row(formulaire.prenom) }}
+        {{ form_row(formulaire.roles) }}
+    </div>
+    <div class="card-footer text-muted">
+        {{ form_end(formulaire) }}        
+    </div>
+</div>
 {% endblock %}

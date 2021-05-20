@@ -4,23 +4,18 @@
 
 {% block body %}
     <h1>
-        <p>Les utilisateurs</p><a href="{{ path('utilisateur_add' ) }}"><button type="button" class="btn btn-outline-primary">Ajouter</button></a>
+        <p>Les utilisateurs</p><a href="{{ path('utilisateur_add' ) }}"><button type="button" class="btn btn-primary">Ajouter</button></a>
     </h1>
     {% if utilisateurs|length > 0 %}
     {% for i in 0..utilisateurs|length - 1 %}
-    <ul>
-        <tr>
-            <br>
-                Nom utilisateur :{{utilisateurs[i].nom }}
-                <p></p>
-                Prénom utilisateur : {{utilisateurs[i].prenom }}
-            </br>
-            <br>
-                <a href="{{ path('utilisateur_update' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                <a href="{{ path('utilisateur_delete' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
-            </br>    
-        </tr>
-    </ul>
+    <div class="card border-secondary mb-3">
+        <h5 class="card-header">{{utilisateurs[i].nom }} {{utilisateurs[i].prenom }}</h5>
+        <div class="card-body">
+            <a href="{{ path('utilisateur_update' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-warning">Modifier</button></a>
+            <a href="{{ path('utilisateur_delete' , {id : utilisateurs[i].id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+        </div>
+    </div>
+    </p>
     {% endfor %}
     {% endif %}
 {% endblock %}

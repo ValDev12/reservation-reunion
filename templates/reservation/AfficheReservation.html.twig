@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Liste des réservations{% endblock %}
+
 {% block body %}
     <h1>
         {% if utilisateur != null %}
@@ -8,21 +10,16 @@
     </h1>
     {% if reservations|length > 0 %}
     {% for reservation in reservations %}
-    <ul>
-        <tr>
-            <br> 
-                Nom Créateur : {{reservation.getCreateur().getNom()}}
-                <p></p>
-                Salle :{{reservation.getSalle().getLibelle()}}
-                 <p></p>
-                Réserver de {{reservation.getDateD|date("Y-m-d H:i:s")}} à {{reservation.getDateF|date("Y-m-d H:i:s")}}
-            </br>
-            <br>
-                <a href="{{ path('ResController_update' , {id : reservation.id}) }}"><button type="button" class="btn btn-outline-dark">Modifier</button></a>
-                <a href="{{ path('ResController_delete' , {id : reservation.id}) }}"><button type="button" class="btn btn-outline-danger">Supprimer</button></a>
-            </br>    
-        </tr>
-    </ul>
+    <div class="card border-secondary mb-3">
+        <h5 class="card-header">{{reservation.getCreateur().getNom()}}</h5>
+        <div class="card-body">
+            <h5 class="card-title">Salle: {{reservation.getSalle().getLibelle()}}</h5>
+            <p class="card-text">Réserver de {{reservation.getDateD|date("Y-m-d H:i:s")}} à {{reservation.getDateF|date("Y-m-d H:i:s")}}</p>
+            <a href="{{ path('ResController_update' , {id : reservation.id}) }}"><button type="button" class="btn btn-warning">Modifier</button></a>
+            <a href="{{ path('ResController_delete' , {id : reservation.id}) }}"><button type="button" class="btn btn-danger">Supprimer</button></a>
+        </div>
+    </div>
+    </p>
     {% endfor %}
     {% endif %}
 {% endblock %}
