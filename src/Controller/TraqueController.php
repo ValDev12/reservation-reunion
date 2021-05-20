@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
+use App\Entity\Utilisateur;
 use App\Form\ReservationType;
+use App\Form\TraquageType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,7 +13,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class TraqueController extends AbstractController
 {
     /**
-     * @Route("/traque/{id}/{date}", name="traque")
+     * @Route("/traque", name="traqueDebut")
+     */
+    public function index(): Response
+    {
+        $utilisateurs = $this->getDoctrine()->getRepository(Utilisateur::class)->findAll();
+        $form = $this->createForm(TraquageType::class, ['utilisateur' => $utilisateurs]);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            return $this-> redirectToRoute('traque_list');
+        }
+        else
+        {
+            return $this->render('traque/new.html.twig', ['formulaire' => $form->createView(),]);
+        };
+    }
+
+    /**
+     * @Route("/traque/{id}/{date}", name="traqueFin")
      */
     public function traquer($id, $date)
     {
