@@ -11,19 +11,19 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dateD', DateType::class, [
+            ->add('dateD', DateTimeType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
                 'label' => 'Date Début',
             ])
-            ->add('dateF', DateType::class, [
+            ->add('dateF', DateTimeType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd',
                 'label' => 'Date Fin',
             ])
             ->add('participant', EntityType::class, [
